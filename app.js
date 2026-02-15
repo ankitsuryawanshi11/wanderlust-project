@@ -30,7 +30,7 @@ app.engine("ejs", ejsMate);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-let dbUrl = process.env.ATLUS_URL
+let dbUrl = process.env.ATLUS_URL;
 
 async function main(){
     try{
@@ -83,6 +83,11 @@ app.use((req,res,next) => {
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
     next();
+});
+
+
+app.get("/", (req, res) => {
+    res.redirect("/listings");
 });
 
 app.use("/listings", listingsRouter);
