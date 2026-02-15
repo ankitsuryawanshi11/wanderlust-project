@@ -30,7 +30,7 @@ app.engine("ejs", ejsMate);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-let dbUrl = process.env.ATLUS_URL;
+let dbUrl = process.env.ATLAS_URL;
 
 async function main(){
     try{
@@ -107,5 +107,5 @@ app.use((err,req,res,next) => {
 })
 
 app.listen(port, () => {
-    console.log("server is listening port", 8080);
+    console.log("server is listening port", port);
 });
