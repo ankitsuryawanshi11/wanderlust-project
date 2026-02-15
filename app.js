@@ -14,7 +14,7 @@ const listingsRouter = require("./router/listing.js");
 const reviewsRouter = require("./router/review.js");
 const userRouter = require("./router/user.js");
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo').default;
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy  = require("passport-local");
@@ -43,24 +43,24 @@ async function main(){
 main();
 
 const store = MongoStore.create({
-    mongourl: dbUrl,
+    mongoUrl: dbUrl,
     crypto:{
-        secret: process.env.SECRATE
+        secret: process.env.SECRET
     },
     touchAfter: 24 * 3600
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
     console.log("ERROR in MOONGO server", err)
 });
 
 const sessionOptions = {
     store,
-    secret: process.env.SECRATE,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
-        expries: Date.now() + 1 * 24 * 60 * 60 * 1000,
+        expires: Date.now() + 1 * 24 * 60 * 60 * 1000,
         maxAge:  1 * 24 * 60 * 60 * 1000,
         httpOnly: true,
     }
